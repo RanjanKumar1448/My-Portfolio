@@ -1,7 +1,7 @@
 # My Portfolio
 
-A personal portfolio website built using HTML, CSS, JavaScript,
-Node.js, Express, EJS and MySQL.
+A personal portfolio website built using HTML, CSS
+Node.js, Express, EJS.
 
 ## Features
 
@@ -10,19 +10,15 @@ Node.js, Express, EJS and MySQL.
 - Skills
 - Projects
 - Contact
-- Admin dashboard
-- Project management
-- Contact messages
 
 ## Technologies
 
 - HTML
 - CSS
-- JavaScript
 - Node.js
 - Express.js
 - EJS
-- MySQL
+- 
 
 ## Installation
 
