@@ -62,13 +62,13 @@ connection.connect((err) => {
 //   console.log(err);
 // }
 
-app.get("/projects",(req,res)=>{
+app.get("/",(req,res)=>{
   let q = `SELECT * FROM projects`;
   try{
     connection.query(q,(err,result)=>{
     if(err)throw err;
    let projects = result;
-   res.render("projects.ejs",{projects});
+   res.render("index.ejs",{projects});
   });
   }catch(err){
     console.log(err);
