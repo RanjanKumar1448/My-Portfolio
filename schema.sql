@@ -9,3 +9,9 @@ CREATE TABLE IF NOT EXISTS projects (
     technologies VARCHAR(255),
     github VARCHAR(255)
 );
+
+CREATE TABLE admins (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
