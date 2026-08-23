@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add project</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h2>Add New Projects In Your Projects Lists.</h2>
+  <form action="/admin/projects/add" method="POST">
+
+    <label>Project Name</label>
+    <input type="text" name="name" required>
+  <br><br>
+
+    <label>Description</label>
+    <textarea rows="5" name="description" placeholder="About Project.." required></textarea>
+   <br><br>
+
+    <label>Technologies</label>
+    <input
+        type="text"
+        name="technologies"
+        placeholder="HTML, CSS, JavaScript, Node.js"
+    >
+       <br><br>
+
+    <label>GitHub Link</label>
+    <input
+        type="url"
+        name="github"
+        placeholder="https://github.com/..."
+    >
+    <br><br>
+    
+    <button type="submit">Add Project</button>
+
+</form>
+</body>
+</html>
