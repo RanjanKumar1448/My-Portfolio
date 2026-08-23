@@ -75,6 +75,36 @@ app.get("/",(req,res)=>{
   }
 });
 
+//Admain page formate started..
+
+const bcrypt = require("bcrypt");
+
+// const password = "admin@123";
+
+// bcrypt.hash(password, 10, (err, hash) => {
+//     if (err) {
+//         console.log(err);
+//         return;
+//     }
+
+//     console.log(hash);
+// });
+
+//  let q = `INSERT INTO admins (username, password) VALUES (?, ?)`;
+
+// let val = [
+//     "admin",
+//     "$2b$10$n8FEa5gJnvFbDYrKcL4rRO88X9hztnDAsL.yLEysUf1TA8EmGhM7e"
+// ];
+
+// connection.query(q, val, (err, result) => {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         console.log("Admin created:", result);
+//     }
+// });
+
 app.listen(port ,()=>{
   console.log(`app is listening on port:${port}`);
 });
