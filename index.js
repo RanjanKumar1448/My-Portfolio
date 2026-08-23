@@ -105,6 +105,41 @@ const bcrypt = require("bcrypt");
 //     }
 // });
 
+//to get login form when click admin button.
+app.get("/admin/login",(req,res)=>{
+     res.render("Admin/login.ejs");
+});
+
+app.post("/admin/dashboard",(req,res)=>{
+  let {username,password} = req.body;
+   let q = `SELECT * FROM admins WHERE username = ?`
+   connection.query(q,[username],(err,result)=>{
+       if(err){
+        console.log(err);
+        return res.send("database error!")
+       }
+       if(result.length === 0){
+         return res.send("invalid username or password!");
+       }
+          let admin = result[0];
+
+           bcrypt.compare(password, admin.password, (err, match) => {
+
+            if (err) {
+                console.log(err);
+                return res.send("Something went wrong");
+            }
+
+            if (!match) {
+                return res.send("Invalid username or password");
+            }
+
+            res.render("Admin/dashbord.ejs");
+        });
+
+   });
+});
+
 app.listen(port ,()=>{
   console.log(`app is listening on port:${port}`);
 });
