@@ -110,6 +110,7 @@ app.get("/admin/login",(req,res)=>{
      res.render("Admin/login.ejs");
 });
 
+//Checking is username and password is valid or not..
 app.post("/admin/dashboard",(req,res)=>{
   let {username,password} = req.body;
    let q = `SELECT * FROM admins WHERE username = ?`
@@ -139,6 +140,30 @@ app.post("/admin/dashboard",(req,res)=>{
 
    });
 });
+
+// render project form.
+app.get("/admin/projects/add",(req,res)=>{
+     res.render("Admin/addproject.ejs");
+});
+
+//insert new project in portfolio
+app.post("/admin/projects/add",(req,res)=>{
+ let {name,description,technologies,github} = req.body;
+ let q = `INSERT INTO projects (name, description,technologies , github)
+        VALUES (?,?,?,?)`;
+   let val =[name,description,technologies,github || null];
+connection.query(q,val,(err,result)=>{
+  if(err){
+    console.log(err);
+     return res.send("Error adding project");
+  }
+       console.log("Project added successfully!");
+
+      res.redirect("/");
+})
+
+});
+
 
 app.listen(port ,()=>{
   console.log(`app is listening on port:${port}`);
