@@ -61,20 +61,32 @@ connection.connect((err) => {
 // }catch(err){
 //   console.log(err);
 // }
+app.get("/", (req, res) => {
 
-app.get("/",(req,res)=>{
-  let q = `SELECT * FROM projects`;
-  try{
-    connection.query(q,(err,result)=>{
-    if(err)throw err;
-   let projects = result;
-   res.render("index.ejs",{projects});
-  });
-  }catch(err){
-    console.log(err);
-  }
+    let projectQuery = `SELECT * FROM projects`;
+    let skillQuery = `SELECT * FROM skills`;
+
+    connection.query(projectQuery, (err, projects) => {
+
+        if (err) {
+            console.log(err);
+            return res.send("Error fetching projects");
+        }
+
+        connection.query(skillQuery, (err, skills) => {
+
+            if (err) {
+                console.log(err);
+                return res.send("Error fetching skills");
+            }
+
+            res.render("index.ejs", {
+                projects,
+                skills
+            });
+        });
+    });
 });
-
 //Admain page formate started..
 
 const bcrypt = require("bcrypt");
@@ -209,6 +221,27 @@ app.get("/admin/message",(req,res)=>{
   console.log(err);
  }
  
+});
+
+//skills ..
+
+app.get("/admin/skills/add",(req,res)=>{
+   res.render("Admin/add-skill.ejs");
+});
+
+app.post("/admin/skills/add",(req,res)=>{
+let {name} = req.body;
+let q = `INSERT INTO skills (name) VALUES ?`;
+let val = [[name]];
+
+connection.query(q,[val],(err,result)=>{
+  if(err){
+    console.log(err);
+     return res.send("error in database");
+  }
+  console.log("add skill successful");
+   res.redirect("/");
+});
 });
 
 app.listen(port ,()=>{
