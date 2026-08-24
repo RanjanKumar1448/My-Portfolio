@@ -1,17 +1,24 @@
-<section id="skills">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>show skill</title>
+ <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <section id="skills">
   <h2>My Skills</h2>
   <div>
     <ul>
-      <li>html</li>
-      <li>Css</li>
-      <li>javaScript</li>
-      <li>bootstrap</li>
-      <li>NodeJS</li>
-      <li>ExpressJS</li>
-      <li>Ejs</li>
-      <li>MYSQL</li>
-      <li>Git</li>
-      <li>GitHub</li>
+    <% for(let skill of skills){ %> 
+      <li><%= skill.name %></li>
+      <% } %>
     </ul>
   </div>
 </section>
+</body>
+</html>
+
+
+
