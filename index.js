@@ -111,7 +111,7 @@ app.get("/admin/login",(req,res)=>{
 });
 
 //Checking is username and password is valid or not..
-app.post("/admin/dashboard",(req,res)=>{
+app.post("/admin/login",(req,res)=>{
   let {username,password} = req.body;
    let q = `SELECT * FROM admins WHERE username = ?`
    connection.query(q,[username],(err,result)=>{
@@ -141,6 +141,16 @@ app.post("/admin/dashboard",(req,res)=>{
    });
 });
 
+// back to main page..
+app.get("/",(req,res)=>{
+    res.render("index.ejs");
+});
+//back to admin dashboard
+app.get("/Admin/dashbord.ejs",(req,res)=>{
+    res.render("Admin/dashbord.ejs");
+});
+
+
 // render project form.
 app.get("/admin/projects/add",(req,res)=>{
      res.render("Admin/addproject.ejs");
@@ -164,6 +174,42 @@ connection.query(q,val,(err,result)=>{
 
 });
 
+// insert message in table..
+
+app.post("/contact",(req,res)=>{
+
+let {name,email,message} = req.body;
+
+let q =` INSERT INTO message (name,email,message) VALUES ?`;
+ 
+let val = [[name,email,message]];
+
+connection.query(q,[val],(err,result)=>{
+if(err){
+  console.log(err);
+  return res.send("error sending message")
+}
+console.log("Message sent successfully!");
+
+ res.redirect("/");
+});
+});
+
+// view message send by visitors..
+
+app.get("/admin/message",(req,res)=>{
+  let q = `SELECT * FROM message`;
+ try{
+    connection.query(q,(err,result)=>{
+       if(err) throw err;
+      let messages = result;
+      res.render("Admin/message.ejs",{messages});
+  });
+ }catch(err){
+  console.log(err);
+ }
+ 
+});
 
 app.listen(port ,()=>{
   console.log(`app is listening on port:${port}`);
