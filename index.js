@@ -159,7 +159,7 @@ app.get("/",(req,res)=>{
     res.render("index.ejs");
 });
 //back to admin dashboard
-app.get("/Admin/dashbord.ejs",(req,res)=>{
+app.get("/Admin/dashbord",(req,res)=>{
     res.render("Admin/dashbord.ejs");
 });
 
