@@ -182,7 +182,7 @@ connection.query(q,val,(err,result)=>{
   }
        console.log("Project added successfully!");
 
-      res.redirect("/");
+      res.redirect("/admin/projects");
 })
 
 });
