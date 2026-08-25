@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>edit project</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+   <h1>Edit Project</h1>
+   
+<form action="/admin/projects/edit/<%= project.id %>?_method=PATCH" method="post">
+
+    <label>Project Name</label>
+    <input 
+        type="text" 
+        name="name" 
+        value="<%= project.name %>"
+    >
+
+    <br><br>
+
+    <label>Description</label>
+    <textarea name="description" rows="5"><%= project.description %></textarea>
+
+    <br><br>
+
+    <label>Technologies</label>
+    <input 
+        type="text" 
+        name="technologies" 
+        value="<%= project.technologies %>"
+    >
+
+    <br><br>
+
+    <label>GitHub</label>
+    <input 
+        type="text" 
+        name="github" 
+        value="<%= project.github %>"
+    >
+
+    <br><br>
+
+    <button type="submit">Update Project</button>
+
+</form>
+
+
+</body>
+</html>
