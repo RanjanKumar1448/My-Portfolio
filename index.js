@@ -301,6 +301,21 @@ connection.query(q,[newname,
     });
       });
 
+      //delete
+      app.delete("/admin/projects/delete/:id",(req,res)=>{
+        let {id} = req.params;
+        let q = `DELETE FROM projects WHERE id = ?`;
+        connection.query(q,[id],(err,result)=>{
+           if(err){
+            console.log(err);
+           return res.send("database error");
+           }
+           console.log("project delete successfully");
+        })
+      });
+
 app.listen(port ,()=>{
   console.log(`app is listening on port:${port}`);
 });
+
+
