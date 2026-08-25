@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const port = 8080;
 const path = require("path");
-
+const methodOverride = require("method-override");
 require("dotenv").config();
 
 const mysql = require("mysql2");
@@ -11,6 +11,7 @@ app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"/views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
@@ -243,6 +244,62 @@ connection.query(q,[val],(err,result)=>{
    res.redirect("/");
 });
 });
+//admin project page.
+app.get("/admin/projects", (req, res) => {
+
+    let q = "SELECT * FROM projects";
+
+    connection.query(q, (err, projects) => {
+
+        if (err) {
+            console.log(err);
+            return res.send("Database error");
+        }
+
+        res.render("Admin/projects.ejs", { projects });
+    });
+});
+
+// project with there id
+
+app.get("/admin/projects/edit/:id",(req,res)=>{
+    let {id} = req.params;
+    let q =` SELECT * FROM projects where id = ?`;
+   connection.query(q,[id],(err,result)=>{
+      if(err){
+        console.log(err);
+       return res.send("error in database");
+      }
+      let project = result[0];
+      console.log("data access successfully");
+       res.render("Admin/edit-project.ejs",{project})
+   });
+});
+// patch request to update project info in db..
+
+app.patch("/admin/projects/edit/:id",(req,res)=>{
+     let {id} = req.params;
+     let {name:newname,
+        description:newdescription,
+        technologies:newtechnologies,
+        github:link} = req.body;
+       let q = `
+    UPDATE projects
+    SET name = ?, description = ?, technologies = ?, github = ?
+    WHERE id = ?
+`;
+connection.query(q,[newname,
+    newdescription,
+    newtechnologies,
+    link,id],(err,result)=>{
+       if(err){
+        console.log(err);
+       return res.send("database error");
+       }
+          console.log("Project updated successfully");
+          res.redirect("/admin/projects")
+    });
+      });
 
 app.listen(port ,()=>{
   console.log(`app is listening on port:${port}`);
