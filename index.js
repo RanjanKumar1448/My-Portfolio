@@ -311,6 +311,7 @@ connection.query(q,[newname,
            return res.send("database error");
            }
            console.log("project delete successfully");
+             res.redirect("/admin/projects");
         })
       });
 
